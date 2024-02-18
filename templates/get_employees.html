@@ -1,0 +1,151 @@
+<!-- get_employees.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HR Dashboard | Add Employee</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="{{ url_for('static', filename='code.js') }}"></script>
+  <!-- Utilisez une URL relative pour charger le fichier code.js -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    {% include 'navbar.html' %}
+
+    <section class="main">
+      <section class="content">
+
+
+                
+        <div id="searchEmployee" style="display: flex; gap: 20px;">
+
+
+            <!-- Formulaire de recherche par nom d'employee -->
+            <form method="POST" action="/search_employee" id="searchEmployee">
+                <label for="searchEmployeeName">Employee Name:</label>
+                <input type="text" name="employee_name" id="searchEmployeeName" placeholder="Employee name">
+                <button type="submit" id="searchEmployeeButton">Search</button>
+            </form>
+
+            <!-- Formulaire de recherche par nom de departement -->
+            <form method="POST" action="/search_departement" id="searchDepartement">
+                <label for="searchEmployeeName">Department Name:</label>
+                <input type="text" name="departement_name" id="searchEmployeeName" placeholder="Department name">
+                <button type="submit" id="searchEmployeeButton">Search</button>
+            </form>
+
+
+            <!-- Export csv -->
+           <a  class="Export_btn" href="{{ url_for('export_employees_csv') }}">Export to CSV</a>
+
+        <!-- Import csv -->
+        <form method="POST" action="/upload_csv" enctype="multipart/form-data">
+            <input type="file" name="csv_file" accept=".csv">
+            <button class="Import_btn" type="submit">Import CSV</button>
+        </form>
+      
+
+        </div>
+
+    
+
+
+
+    <!-- Tableau des employés -->
+        <section class="attendance" id="employeesTable">
+          <div class="attendance-list">
+            <h1>Employees List</h1>
+            <table class="table" id="employeeTableBody">
+
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>Role</th>
+                  <th>Manager</th>
+                  <th>Salary</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for employee in employees %}
+                  <tr>
+                    <td>{{ employee.employee_id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.role }}</td>
+                    <td>{{ employee.manager }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>
+                        <form method="POST" action="/delete_employee">
+                            <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+
+                    <td>
+                            <a href="{{ url_for('update_employee_form', employee_id=employee.employee_id) }}" onclick="updateEmployee('{{ employee.employee_id }}')">
+                      <button>Update</button>
+                  </a>
+                
+                  </td>
+                  </tr>
+                {% endfor %}
+
+
+
+                {% for employee in search_results %}
+                  <tr>
+                    <td>{{ employee.employee_id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.department }}</td>
+                    <td>{{ employee.role }}</td>
+                    <td>{{ employee.manager }}</td>
+                    <td>{{ employee.salary }}</td>
+                     <td>
+                        <form method="POST" action="/delete_employee">
+                          
+                            <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                            <a href="{{ url_for('update_employee_form', employee_id=employee.employee_id) }}" onclick="updateEmployee('{{ employee.employee_id }}')">
+                      <button>Update</button>
+                  </a>
+                
+                  </td>
+                  </tr>
+                {% endfor %}
+                   
+              </tbody>
+
+         
+            </table>
+          </div>
+        </section>
+      </section>
+    </section>
+  </div>
+</body>
+
+
+<script>
+    function updateEmployee(employeeId) {
+        // Affichez l'employeeId où vous le souhaitez dans votre page HTML
+        document.getElementById('employeeIdContainer').innerText = employeeId;
+        
+        // Vous pouvez également effectuer d'autres actions ici, comme afficher un formulaire, etc.
+    }
+</script>
+
+</html>
+
+
+

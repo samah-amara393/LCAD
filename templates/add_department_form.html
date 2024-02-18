@@ -1,0 +1,73 @@
+<!-- add_employee_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HR | Add Employee</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="{{ url_for('static', filename='code.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('serve_static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    {% include 'navbar.html' %}
+
+    <section class="main">
+      <section class="content">
+
+    <section class="debug-info">
+        <p>{{ message }}</p>
+    </section>
+
+
+      <!--Formulaire pour ajouter un departement-->
+      <form id="addDeptForm" class="add-employee-form"  method="POST" action="/add_department" enctype="application/x-www-form-urlencoded">
+              <label for="DepartmentName">Department:</label>
+              <input type="text" id="DepartmentName" name="DepartmentName" required>
+                <label for="DepartmentDescription">Description:</label>
+              <input type="text" id="DepartmentDescription" name="DepartmentDescription">
+              <button type="submit">Add Department</button>
+      </form>
+
+
+  
+        <!-- Tableau des departements -->
+        <section class="attendance_dept" id="departmentsTable">
+          <div class="attendance-list_dept">
+            <h1>Departments List</h1>
+            <table class="table" id="departmentTableBody">
+              <thead>
+                <tr>
+                  <th>Department_ID</th>
+                  <th>Department</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for department in departments %}
+                  <tr>
+                    <td>{{ department.department_id}}</td>
+                    <td>{{ department.departmentName}}</td>
+                    <td>{{ department.departmentDescription}}</td>
+                    <td>
+                    
+                        <form method="POST" action="/delete_department">
+                            <input type="hidden" name="department_name" value="{{department.departmentName}}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    
+                 
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+
+            </table>
+
+      </section>
+    </section>
+  </div>    
+</body>
+</html>

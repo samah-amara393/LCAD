@@ -1,0 +1,73 @@
+
+    <!-- update_employee_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HR | Add Employee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="{{ url_for('static', filename='code.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('serve_static', filename='style.css') }}">
+</head>
+
+
+<body>
+
+<div class="container">
+    {% include 'navbar.html' %}
+
+    <section class="main">
+      <section class="content">
+
+
+    <section class="debug-info">
+        <p>{{ message }}</p>
+    </section>
+    
+    
+
+
+    <section class="debug-info">
+    <p>Employee ID : <span id="employeeIdContainer"></span></p>
+    </section>
+
+
+
+<form id="addEmployeeForm" class="add-employee-form"  method="POST" action="{{ url_for('update_employee', employee_id=employee_id) }}">
+    <!-- Input hidden pour employee_id -->
+    <input type="hidden" name="employee_id" id="employee_id" value="{{ employee_id }}">
+    <!--input type="number"  name="employee_id" id="employee_id"  value="{{ employee_id }}"-->
+  
+    <label for="employee_name">Updated Name:</label>
+    <input type="text" name="employee_name" id="employee_name" required>
+
+    <label for="department">Updated Department:</label>
+    <input type="text" name="department" id="department" required>
+    
+    <label for="role">Updated Role:</label>
+    <input type="text" name="role" id="role" required>
+    
+    <label for="manager">Updated Manager:</label>
+    <input type="text" name="manager" id="manager" required>
+    
+    <label for="salary">Updated Salary:</label>
+    <input type="text" name="salary" id="salary" required>
+
+    <button type="submit">Update Employee</button>
+</form>
+
+      </section>
+    </section>
+
+
+  </div>
+
+  <script>
+
+  </script>
+
+    
+      
+</body>
+
+</html>

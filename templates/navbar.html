@@ -1,0 +1,32 @@
+<!-- _navbar.html -->
+<nav>
+    <ul>
+      <li><a href="#" class="logo">
+        <img src="{{ url_for('serve_static', filename='pic/admin2.png') }}" alt="Description de l'image">
+        <span class="nav-item">Admin</span>
+      </a></li>
+    <!-- Lien dans votre page HTML -->
+    <li><a href="{{ url_for('get_employees') }}">
+        <i class="fas fa-database"></i>
+        <span class="nav-item">Employees List</span>
+    </a></li>
+
+
+
+
+      <li><a href="{{ url_for('add_employee_form') }}">
+        <i class="fas fa-database"></i>
+        <span class="nav-item">Add Employee</span>
+      </a></li>
+      
+      <li><a href="{{ url_for('get_departments') }}">
+        <i class="fas fa-database"></i>
+        <span class="nav-item">Add Department</span>
+      </a></li>
+      <li><a href="{{ url_for('visualisation') }}">
+        <i class="fas fa-chart-bar"></i>
+        <span class="nav-item">visualization</span>
+      </a></li>
+
+  </nav>
+  

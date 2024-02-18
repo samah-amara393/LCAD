@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HR Dashboard | By Code Info</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <script src="{{ url_for('static', filename='code.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('serve_static', filename='style.css') }}">
+  
+</head>
+<body>
+  <div class="container">
+    {% include 'navbar.html' %}
+
+    <section class="main">
+      <section class="content">
+
+        <div class="visualization-container">
+
+        <img class="visualization" src="{{ plot_url_1 }}" alt="Graphique des employés par département"> 
+        <img class="visualization" src="{{ plot_url_2 }}" alt="Graphique des moyennes de salaires"> 
+        </div>
+     
+     
+      </section>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!-- add_employee_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title> HR Dashboard | Add Employee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="{{ url_for('static', filename='code.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('serve_static', filename='style.css') }}">
+</head>
+
+
+<body>
+  <div class="container">
+    {% include 'navbar.html' %}
+
+    <section class="main">
+      <section class="content">
+
+    <section class="debug-info">
+        <p>{{ message }}</p>
+    </section>
+
+          <!--Formulaire pour ajouter un employee-->
+        <form id="addEmployeeForm" class="add-employee-form"  method="POST" action="/add_employee" enctype="application/x-www-form-urlencoded">
+        <label for="EmployeeName">Name:</label>
+        <input type="text" id="EmployeeName" name="EmployeeName" required>
+
+        <label for="EmployeeDept">Department:</label>
+        <input type="text" id="EmployeeDept" name="EmployeeDept" required>
+
+
+        
+        <label for="EmployeeRole">Role:</label>
+        <input type="text" id="EmployeeRole" name="EmployeeRole" required>
+
+
+        <label for="EmployeeManager">Manager:</label>
+        <input type="text" id="EmployeeManager" name="EmployeeManager" required>
+
+        <label for="EmployeeSalary">Salary:</label>
+        <input type="text" id="EmployeeSalary" name="EmployeeSalary" required>
+
+        <button type="submit">Add Employee</button>  
+        </form>
+
+      </section>
+    </section>
+
+
+  </div>    
+</body>
+</html>

@@ -1,0 +1,29 @@
+version: '3'
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.18.0.0/24
+
+services:
+  neo4j:
+    image: neo4j:latest
+    environment:
+      NEO4J_AUTH: neo4j/Sameh12345
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    networks:
+      my_network:
+        ipv4_address: 192.18.0.2
+
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - neo4j
+    networks:
+      my_network:
+        ipv4_address: 192.18.0.3

@@ -8,3 +8,14 @@ function showSuccessMessage() {
         successMessage.style.display = "none";
     }, 5000); // Le message disparaîtra après 5 secondes (ajustez la valeur selon vos préférences)
 }
+
+
+ function updateEmployee(employeeId, employeeName, department, role, manager, salary) {
+        document.getElementById('employee_id');
+        document.getElementById('employee_name').value = employeeName;
+        document.getElementById('department').value = department;
+        document.getElementById('role').value = role;
+        document.getElementById('manager').value = manager;
+        document.getElementById('salary').value = salary;
+    }
+

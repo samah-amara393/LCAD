@@ -90,9 +90,9 @@
                     </td>
 
                     <td>
-                            <a href="{{ url_for('update_employee_form', employee_id=employee.employee_id) }}" onclick="updateEmployee('{{ employee.employee_id }}')">
-                      <button>Update</button>
-                  </a>
+                          <a href="{{ url_for('update_employee_form2', employee_id=employee.employee_id, employee_name=employee.name, department=employee.department, role=employee.role, manager=employee.manager, salary=employee.salary) }}">
+                        <button>Update</button>
+                    </a>
                 
                   </td>
                   </tr>
@@ -116,9 +116,9 @@
                         </form>
                     </td>
                     <td>
-                            <a href="{{ url_for('update_employee_form', employee_id=employee.employee_id) }}" onclick="updateEmployee('{{ employee.employee_id }}')">
-                      <button>Update</button>
-                  </a>
+                             <a href="{{ url_for('update_employee_form2', employee_id=employee.employee_id, employee_name=employee.name, department=employee.department, role=employee.role, manager=employee.manager, salary=employee.salary) }}">
+                        <button>Update</button>
+                    </a>
                 
                   </td>
                   </tr>

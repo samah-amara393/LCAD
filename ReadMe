@@ -1,0 +1,5 @@
+docker-compose images
+docker-compose up --build
+docker-compose start
+docker-compose stop
+docker-compose up -d

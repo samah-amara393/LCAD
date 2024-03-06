@@ -1,14 +1,16 @@
-# syntax=docker/dockerfile:1
-
-FROM python:3.8-slim-buster
-
-RUN apt-get update && apt-get install -y gunicorn vim
+#  une image de base avec Python et Flask
+FROM python:3.10.4-slim
 
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
-#RUN pip install -r requirements.txt
-
 COPY . .
 
-CMD [ "gunicorn", "--bind" , "0.0.0.0:3400","app:app"]
+# Installation des dépendances
+RUN pip install -r requirements.txt
+
+# le port sur lequel votre application Flask s'exécute
+EXPOSE 5000
+
+# Démarrage de l'application Flask
+CMD ["python", "app.py"]

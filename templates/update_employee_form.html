@@ -33,28 +33,35 @@
 
 
 
-<form id="addEmployeeForm" class="add-employee-form"  method="POST" action="{{ url_for('update_employee', employee_id=employee_id) }}">
+
+<form id="addEmployeeForm" class="add-employee-form" method="POST" action="/update_employee">
     <!-- Input hidden pour employee_id -->
     <input type="hidden" name="employee_id" id="employee_id" value="{{ employee_id }}">
-    <!--input type="number"  name="employee_id" id="employee_id"  value="{{ employee_id }}"-->
-  
+
     <label for="employee_name">Updated Name:</label>
-    <input type="text" name="employee_name" id="employee_name" required>
+    <input type="text" name="employee_name" id="employee_name" value="{{ employee_name }}" required>
 
     <label for="department">Updated Department:</label>
-    <input type="text" name="department" id="department" required>
-    
+    <input type="text" name="department" id="department" value="{{ department }}" required>
+
     <label for="role">Updated Role:</label>
-    <input type="text" name="role" id="role" required>
-    
+    <input type="text" name="role" id="role" value="{{ role }}" required>
+
     <label for="manager">Updated Manager:</label>
-    <input type="text" name="manager" id="manager" required>
-    
+    <input type="text" name="manager" id="manager" value="{{ manager }}" required>
+
     <label for="salary">Updated Salary:</label>
-    <input type="text" name="salary" id="salary" required>
+    <input type="text" name="salary" id="salary" value="{{ salary }}" required>
 
     <button type="submit">Update Employee</button>
 </form>
+
+
+
+
+
+
+
 
       </section>
     </section>

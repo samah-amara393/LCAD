@@ -11,9 +11,8 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from dotenv import load_dotenv
-import flask_monitoringdashboard as dashboard
-
-
+from werkzeug.utils import url_quote
+from add_data import add_data_to_database
 
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
@@ -29,6 +28,13 @@ driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
 app = Flask(__name__)
 CORS(app)  # Activez CORS pour toutes les routes
+
+
+
+# Enregistrez la fonction pour qu'elle soit exécutée avant la première requête
+@app.before_first_request
+def before_first_request():
+    add_data_to_database(driver)
 
 
 @app.route('/')
@@ -73,8 +79,6 @@ def get_employees():
     except Exception as e:
         print(f"Erreur lors de la récupération des employés : {str(e)}")
         return render_template('error.html', error=str(e))
-
-
 
 # ***********************************************ADD Employee*****************************************************************
 @app.route('/add_employee', methods=['POST'])
@@ -153,10 +157,6 @@ def api_add_department():
             department_count = result[0]["departmentCount"]
 
             print("department_count :",department_count)
-
-
-
-
             if department_count == 0:
                 add_result = driver.execute_query(
                     """
@@ -365,20 +365,29 @@ def delete_department():
         return render_template('error.html', error=str(e))
     
 # **************************************UPDATE EMPLOYEE***************************************************************************
-@app.route('/update_employee', methods=['POST','PATCH'])
+@app.route('/update_employee_form2', methods=['GET'])
+def update_employee_form2():
+    employee_id = request.args.get('employee_id')
+    employee_name = request.args.get('employee_name')
+    department = request.args.get('department')
+    role = request.args.get('role')
+    manager = request.args.get('manager')
+    salary = request.args.get('salary')
+
+    return render_template('update_employee_form.html', employee_id=employee_id, employee_name=employee_name, department=department, role=role, manager=manager, salary=salary)
+    
+
+@app.route('/update_employee', methods=['POST'])
 def update_employee():
     try:     
-        # Récupérer l'employee_id à partir du formulaire
-        #employee_id = request.view_args.get('employee_id')
-        employee_id = request.values.get('employee_id')
-
-        print("Employee ID dans update_employee :", employee_id)
-    
+        
+        employee_id = int(request.form.get('employee_id'))
         name = request.form.get('employee_name')
         department = request.form.get('department')
         role = request.form.get('role')
         manager = request.form.get('manager')
         salary = request.form.get('salary')
+        print("Employee ID dans update_employee :", employee_id,name,department,role,manager,salary)
 
         # Connect to Neo4j and run queries to update employee
 
@@ -396,8 +405,8 @@ def update_employee():
             employee_id=employee_id , employee_name=name, department=department,
             role=role, manager=manager, salary=salary
         )
-        print("Employee ID:", employee_id)
-        print("Neo4j Result:", result)
+
+        print("Neo4j Result:", result.records)
 
         # Check if the result contains any records
         if result and result.records:
@@ -416,7 +425,7 @@ def update_employee():
         return f"Error updating employee details: {str(e)}", 500
 
 
-# **************************************VIZ********************************************************
+# **************************************Visualisation********************************************************
 @app.route('/visualisation')
 def visualisation():
     # Initialisez des listes vides pour stocker les données
@@ -463,4 +472,4 @@ def visualisation():
 
 
 
-    
+ 
